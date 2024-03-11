@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Adventure</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Space Adventure</h1>
+    <h3>Score : <span id="score">0</span></h3>
+    <div id="main" style="background-position-y: 0;">
+        <div id="area">
+            <div id="plane" style="margin-left: 160px; margin-top: 400px;"></div>
+            <!-- Tambahkan kode untuk menambahkan objek meteor -->
+            <!-- Objek meteor akan ditambahkan secara dinamis di sini -->
+        </div>
+    </div>
+
+    <script>
+        var isMoving = true;
+
+        function setBackgroundMoving() {
+            if (isMoving == true) {
+                setTimeout(function () {
+                    var bg = document.getElementById('main');
+
+                    bg.style.backgroundPositionY = (parseInt(bg.style.backgroundPositionY.replace('px', '')) +
+                            1) +
+                        'px';
+
+                    document.getElementById('score').innerHTML = parseInt(document.getElementById('score')
+                        .innerHTML) + 1;
+
+                    setBackgroundMoving();
+                }, 5)
+            }
+        }
+        setBackgroundMoving();
+
+        function setMeteorMoving() {
+            var meteors = document.querySelectorAll('.meteor'),
+                plane = document.getElementById('plane');
+
+            meteors.forEach(function (meteor) {
+                moveMeteor(meteor);
+            });
+
+            function moveMeteor(meteor) {
+                setTimeout(function () {
+                    // Get the current score
+                    var score = parseInt(document.getElementById('score').innerHTML);
+
+                    // Calculate the speed based on the score
+                    var speed = 2 + Math.floor(score / 1000) * 2; // Increment speed by 2 for every 1000 score
+
+                    // Update the marginTop with the calculated speed
+                    meteor.style.marginTop = (parseInt(meteor.style.marginTop.replace('px', '')) + speed) +
+                    'px';
+
+                    if (parseInt(meteor.style.marginTop.replace('px', '')) > 500) {
+                        meteor.style.marginLeft = (Math.floor(Math.random() * 250) + 50) + 'px';
+                        meteor.style.marginTop = "-100px";
+                    }
+
+                    var plane = document.getElementById('plane');
+                    if (
+                        meteor.offsetTop + 56 >= plane.offsetTop &&
+                        meteor.offsetLeft + 50 >= plane.offsetLeft &&
+                        meteor.offsetTop + 56 <= plane.offsetTop + 100 &&
+                        meteor.offsetLeft <= plane.offsetLeft + 50
+                    ) {
+                        alert('Game Over, Score : ' + document.getElementById('score').innerHTML);
+                        isMoving = false;
+                        plane.setAttribute('class', 'freeze');
+                        meteors.forEach(function (meteor) {
+                            meteor.setAttribute('class', 'freeze');
+                        });
+                    } else {
+                        moveMeteor(meteor);
+                    }
+                }, 1);
+            }
+        }
+
+        // Inisialisasi multiple meteors
+        for (var i = 0; i < 4; i++) {
+            var meteor = document.createElement('div');
+            meteor.setAttribute('class', 'meteor');
+            meteor.style.marginLeft = (Math.floor(Math.random() * 250) + 50) + 'px';
+            meteor.style.marginTop = "-" + (i * 150) + "px";
+            document.getElementById('area').appendChild(meteor);
+        }
+
+        // Panggil setMeteorMoving setelah menambahkan objek meteor
+        setMeteorMoving();
+
+
+        window.addEventListener('keydown', function (btn) {
+            //console.log(btn.keyCode);
+            var plane = document.getElementById('plane'),
+                left = parseInt(plane.style.marginLeft.replace('px', '')),
+                top = parseInt(plane.style.marginTop.replace('px', ''));
+
+            // 37 kiri, 38 atas, 39 kanan, 40 bawah
+            if (isMoving == true) {
+                if (btn.keyCode == 37) {
+                    if (left > 10) {
+                        plane.style.marginLeft = (left - 30) + 'px';
+                    }
+                } else if (btn.keyCode == 38) {
+                    if (top > 0) {
+                        plane.style.marginTop = (top - 30) + 'px';
+                    }
+                } else if (btn.keyCode == 39) {
+                    if (left < 340) {
+                        plane.style.marginLeft = (left + 30) + 'px';
+                    }
+                } else if (btn.keyCode == 40) {
+                    if (top < 400) {
+                        plane.style.marginTop = (top + 30) + 'px';
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

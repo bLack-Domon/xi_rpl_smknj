@@ -1,0 +1,100 @@
+body{
+    text-align: center;
+    background-image: url('images/body-bg.jpg');
+    color: white;
+}
+
+
+/* CSS untuk tombol */
+button {
+    padding: 10px 20px; /* Atur padding agar tombol terlihat lebih besar */
+    background-color: #ffffff; /* Atur warna latar belakang */
+    color: rgb(255, 0, 0); /* Atur warna teks */
+    border: none; /* Hilangkan border */
+    border-radius: 5px; /* Tambahkan border radius agar tombol memiliki sudut yang melengkung */
+    cursor: pointer; /* Ubah kursor menjadi pointer ketika diarahkan ke tombol */
+    font-size: 16px; /* Atur ukuran teks */
+    display: block; /* Atur tampilan menjadi blok agar dapat diatur lebar dan tingginya */
+    margin: 0 auto; /* Atur margin agar tombol berada di tengah-tengah */
+    margin-bottom: 10px;
+}
+
+/* CSS untuk form */
+form {
+    text-align: center; /* Atur teks dalam form agar berada di tengah-tengah */
+}
+
+#main{
+    width: 400px;
+    height: 510px;
+    background: url('images/background.jpg');
+    margin: 0 auto;
+}
+
+#area{
+    width: 400px;
+    height: 510px;
+    position: absolute;
+    overflow: hidden;
+    z-index: 100;
+}
+
+@keyframes planeGo{
+    from{
+        background: url('images/plane1.png');
+        background-size: 100%;
+    }
+    to{
+        background: url('images/plane2.png');
+        background-size: 100%;
+    }
+}
+
+#plane{
+    width: 58px;
+    height: 100px;
+    background: url('images/plane1.png');
+    background-size: 100%;
+    position: absolute;
+    margin-top: 400px;
+    animation: planeGo 0.3s infinite;
+}
+
+#plane.freeze{
+    width: 58px;
+    height: 100px;
+    background: url('images/plane1.png');
+    background-size: 100%;
+    position: absolute;
+    margin-top: 400px;
+    animation: none;
+}
+
+@keyframes meteorGo{
+    from{
+        background: url('images/meteor1.png');
+        background-size: 100%;
+    }
+    to{
+        background: url('images/meteor2.png');
+        background-size: 100%;
+    }
+}
+
+.meteor {
+    position: absolute;
+    width: 58px; /* Sesuaikan dengan lebar objek meteor */
+    height: 86px; /* Sesuaikan dengan tinggi objek meteor */
+    background: url('images/meteor1.png'); /* Warna objek meteor */
+    background-size: 100% 100%;
+    animation: meteorGo 0.3s infinite;
+}
+
+.meteor.freeze {
+    position: absolute;
+    width: 58px; /* Sesuaikan dengan lebar objek meteor */
+    height: 86px; /* Sesuaikan dengan tinggi objek meteor */
+    background: url('images/meteor1.png'); /* Warna objek meteor */
+    background-size: 100% 100%;
+    animation: none;
+}
